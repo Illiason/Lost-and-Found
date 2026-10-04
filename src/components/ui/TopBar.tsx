@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStep } from '../../state/StepContext'
-import { ACT_LABELS, STEPS } from '../../steps'
+import { ACT_LABELS } from '../../steps'
 import { Wordmark } from './LogoMark'
 
 export function TopBar() {
-  const { index, step, direction } = useStep()
+  const { step, direction } = useStep()
 
   return (
     <header className="flex h-16 shrink-0 items-center gap-6 border-b border-border px-6">
@@ -33,21 +33,7 @@ export function TopBar() {
         </div>
       </div>
 
-      <div className="flex w-56 items-center justify-end gap-3">
-        <div className="flex items-center gap-1.5" aria-label={`Step ${index + 1} of ${STEPS.length}`}>
-          {STEPS.map((s, i) => (
-            <span
-              key={s.id}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === index ? 'w-5 bg-accent' : i < index ? 'w-2 bg-accent/50' : 'w-2 bg-border'
-              }`}
-            />
-          ))}
-        </div>
-        <span className="w-10 text-right text-xs tabular-nums text-muted">
-          {index + 1}/{STEPS.length}
-        </span>
-      </div>
+      <div className="w-56" />
     </header>
   )
 }
