@@ -1,0 +1,49 @@
+/* Map-only animations. Classes are applied only on forward entry, so backward steps render instantly. */
+
+@keyframes ll-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.ll-pop {
+  animation: ll-pop 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes ll-ring {
+  from {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}
+.ll-ring {
+  animation: ll-ring 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+.ll-ring-once {
+  opacity: 0;
+  animation: ll-ring 900ms ease-out 2;
+}
+
+@keyframes ll-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px rgb(61 220 132 / 0.45));
+  }
+  50% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 16px rgb(61 220 132 / 0.8));
+  }
+}
+.ll-breathe {
+  animation: ll-breathe 2.8s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}

@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+@theme {
+  --font-sans: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: #0b0f0e;
+  --color-surface: #121816;
+  --color-border: #1f2a26;
+  --color-text: #e8f0ec;
+  --color-muted: #8fa39a;
+  --color-accent: #3ddc84;
+  --color-amber: #f5b547;
+
+  --shadow-soft: 0 10px 30px -10px rgb(0 0 0 / 0.6), 0 2px 6px -2px rgb(0 0 0 / 0.4);
+  --shadow-device: 0 40px 80px -20px rgb(0 0 0 / 0.8), 0 0 0 1px rgb(255 255 255 / 0.04);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    overflow: hidden;
+  }
+}
+
+@utility glass {
+  background: rgb(18 24 22 / 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgb(255 255 255 / 0.06);
+}
