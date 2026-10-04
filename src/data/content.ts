@@ -13,11 +13,11 @@ export const content = {
   appName: 'Lostline',
 
   ownerMessage:
-    'Last night I took the DART from Malahide to Tara St around 22:30. Left my black Dell laptop on it.',
+    'Last night I took the DART from Malahide to Tara St around 22:30. Left my grey Lenovo laptop on it, the one covered in stickers.',
 
   parsedTag: 'AI-extracted',
   parsedFields: [
-    { label: 'Item', value: 'Laptop · Dell · Black' },
+    { label: 'Item', value: 'Laptop · Lenovo · Grey · stickers' },
     { label: 'Line', value: 'DART' },
     { label: 'Route', value: 'Malahide → Tara Street' },
     { label: 'Time', value: '~22:30 last night' },
@@ -41,11 +41,11 @@ export const content = {
   postedToast: 'Posted. Watching for matches along your route.',
 
   finderPhoto: '/found-laptop.jpg',
-  finderAI: 'Laptop · Dell · Black · sticker on lid',
+  finderAI: 'Laptop · Lenovo Legion · Grey · covered in stickers',
   /** Percent of the image. */
   blurBoxes: [
-    { label: 'serial', x: 62, y: 78, w: 22, h: 8 },
-    { label: 'sticker', x: 30, y: 35, w: 18, h: 14 },
+    { label: 'credentials', x: 8.5, y: 40, w: 14.5, h: 10 },
+    { label: 'sticker', x: 54.5, y: 50, w: 13, h: 10 },
   ],
   privacyCaption: 'Hidden for privacy — used to verify the owner.',
 
@@ -58,12 +58,12 @@ export const content = {
   matchReasons: [
     { text: 'Same line and direction', type: 'ok' },
     { text: "Found at your train's terminus shortly after you got off", type: 'ok' },
-    { text: 'Black Dell laptop', type: 'ok' },
+    { text: 'Grey Lenovo laptop covered in stickers', type: 'ok' },
     { text: 'One hidden detail to confirm', type: 'pending' },
   ] as MatchReason[],
 
-  verifyQuestion: "What's on the lid?",
-  verifyAnswer: 'Dublin Bikes sticker',
+  verifyQuestion: 'Which sticker is next to the MongoDB one?',
+  verifyAnswer: 'Lambda Dublin',
 
   finaleBanner: 'Returned. No forms, no phone calls.',
 
