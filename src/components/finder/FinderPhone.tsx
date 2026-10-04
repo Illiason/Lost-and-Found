@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react'
+import { useEffect, useRef, type ComponentType } from 'react'
 import { content } from '../../data/content'
 import { useStep } from '../../state/StepContext'
 import type { StepId } from '../../types'
@@ -43,9 +43,18 @@ const SCREENS: Record<ScreenName, ComponentType<ScreenProps>> = {
 }
 
 export function FinderPhone() {
-  const { step, stepId, direction, resetCount } = useStep()
+  const { index, step, stepId, direction, resetCount } = useStep()
   const active = step.activePhone === 'finder' || step.activePhone === 'both'
   const photo = usePhotoSrc()
+
+  // Only a single step forward animates. Back, reset and digit-key jumps (whatever
+  // direction they report) land on the finished state. Updated after commit, so
+  // StrictMode's double render sees the same previous index both times.
+  const prevIndex = useRef(index)
+  useEffect(() => {
+    prevIndex.current = index
+  }, [index])
+  const forward = direction === 1 && index === prevIndex.current + 1
 
   const screen = SCREEN_FOR_STEP[stepId]
   const Screen = SCREENS[screen]
@@ -62,7 +71,7 @@ export function FinderPhone() {
         </div>
         <div className="relative min-h-0 flex-1 overflow-hidden">
           {/* Remounting on screen change or reset is what cancels a screen's timers and animations. */}
-          <Screen key={`${screen}-${resetCount}`} animate={direction === 1} photo={photo} />
+          <Screen key={`${screen}-${resetCount}`} animate={forward} photo={photo} />
         </div>
       </div>
     </PhoneFrame>
