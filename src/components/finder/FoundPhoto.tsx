@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Fragment, type CSSProperties, type ReactNode } from 'react'
-import { blurBoxes, type BlurBox } from './blurConfig'
+import { blurBoxes, photoFocus, type BlurBox } from './blurConfig'
 import { blurLabel } from './copy'
 
 const HATCH =
@@ -41,6 +41,7 @@ export function FoundPhoto({
           alt="Found item"
           draggable={false}
           className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: photoFocus }}
           initial={animate && !blur ? { scale: 1.08 } : false}
           animate={{ scale: 1 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -62,7 +63,7 @@ export function FoundPhoto({
                   height: `${box.h}%`,
                   backgroundImage: HATCH,
                 }}
-                initial={animate ? { opacity: 0, scale: 1.5 } : false}
+                initial={animate ? { opacity: 0, scale: 1.18 } : false}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.35, ease: 'easeOut', delay }}
               />

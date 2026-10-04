@@ -17,6 +17,7 @@ export const finderCopy = {
   scanning: 'Scanning photo…',
   aiTag: 'AI',
   serialHidden: 'serial hidden',
+  loginHidden: 'login hidden',
   detailHidden: 'detail hidden',
 
   handedIn: 'Handed in',
@@ -31,5 +32,7 @@ export const finderCopy = {
 }
 
 export function blurLabel(label: string): string {
-  return label === 'serial' ? finderCopy.serialHidden : finderCopy.detailHidden
+  if (label === 'serial') return finderCopy.serialHidden
+  if (label === 'login') return finderCopy.loginHidden
+  return finderCopy.detailHidden
 }

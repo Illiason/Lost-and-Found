@@ -194,6 +194,7 @@ export function ScanScreen(props: ScreenProps) {
         {!scanned && (
           <motion.div
             className="absolute inset-x-0 h-20 border-b-2 border-accent bg-gradient-to-b from-transparent to-accent/35"
+            style={{ boxShadow: '0 6px 22px 2px rgb(61 220 132 / 0.55), 0 1px 4px rgb(61 220 132 / 0.9)' }}
             initial={{ top: '-35%' }}
             animate={{ top: '100%' }}
             transition={{ duration: SCAN_SECONDS, ease: 'linear' }}
@@ -230,8 +231,8 @@ export function ScanScreen(props: ScreenProps) {
 
 /* Step 8: finder-handin */
 
-// instructions → button pressed → checked → owner notified
-const HANDIN_PHASES = [1400, 1600, 2300] as const
+// instructions → button pressed (held 250 ms) → checked → owner notified
+const HANDIN_PHASES = [1400, 1650, 2350] as const
 
 export function HandInScreen(props: ScreenProps) {
   const animate = useFrozen(props.animate)
@@ -261,11 +262,15 @@ export function HandInScreen(props: ScreenProps) {
           )}
         </div>
         <motion.div
-          className={`flex h-14 items-center justify-center gap-2 rounded-2xl border text-lg font-semibold transition-colors duration-300 ${
-            done ? 'border-accent bg-accent text-bg' : 'border-border bg-surface text-text'
+          className={`flex h-14 items-center justify-center gap-2 rounded-2xl border text-lg font-semibold transition-colors duration-200 ${
+            done
+              ? 'border-accent bg-accent text-bg'
+              : phase === 1
+                ? 'border-accent/70 bg-accent/20 text-text'
+                : 'border-border bg-surface text-text'
           }`}
-          animate={{ scale: phase === 1 ? 0.95 : 1 }}
-          transition={{ duration: 0.15 }}
+          animate={{ scale: phase === 1 ? 0.94 : 1 }}
+          transition={{ duration: 0.12 }}
         >
           {done && <AnimatedCheck animate={animate} />}
           {finderCopy.handedIn}
