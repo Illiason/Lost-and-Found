@@ -1,0 +1,40 @@
+{
+  "source": {
+    "name": "NTA GTFS – Irish Rail (Transport for Ireland)",
+    "url": "https://www.transportforireland.ie/transitData/Data/GTFS_Irish_Rail.zip",
+    "downloaded": "2026-10-04"
+  },
+  "service": { "route": "DART", "headsign": "Bray", "tripId": "PLACEHOLDER", "date": "2026-10-03" },
+  "ownerBoard": "Malahide",
+  "ownerAlight": "Tara Street",
+  "stops": [
+    { "id": "PH-MHIDE", "name": "Malahide", "lat": 53.4509, "lon": -6.1543, "time": "22:31" },
+    { "id": "PH-PMNCK", "name": "Portmarnock", "lat": 53.4169, "lon": -6.1513, "time": "22:34" },
+    { "id": "PH-CLGRF", "name": "Clongriffin", "lat": 53.4029, "lon": -6.1484, "time": "22:36" },
+    { "id": "PH-HWTHJ", "name": "Howth Junction & Donaghmede", "lat": 53.3910, "lon": -6.1558, "time": "22:39" },
+    { "id": "PH-KBRCK", "name": "Kilbarrack", "lat": 53.3869, "lon": -6.1617, "time": "22:41" },
+    { "id": "PH-RAHNY", "name": "Raheny", "lat": 53.3815, "lon": -6.1770, "time": "22:43" },
+    { "id": "PH-HAFLD", "name": "Harmonstown", "lat": 53.3784, "lon": -6.1917, "time": "22:45" },
+    { "id": "PH-KLSTR", "name": "Killester", "lat": 53.3731, "lon": -6.2041, "time": "22:47" },
+    { "id": "PH-CTARF", "name": "Clontarf Road", "lat": 53.3627, "lon": -6.2271, "time": "22:50" },
+    { "id": "PH-CONNL", "name": "Connolly", "lat": 53.3531, "lon": -6.2462, "time": "22:53" },
+    { "id": "PH-TARA", "name": "Tara Street", "lat": 53.3470, "lon": -6.2544, "time": "22:55" },
+    { "id": "PH-PERSE", "name": "Pearse", "lat": 53.3434, "lon": -6.2490, "time": "22:57" },
+    { "id": "PH-GCDK", "name": "Grand Canal Dock", "lat": 53.3394, "lon": -6.2378, "time": "22:59" },
+    { "id": "PH-LDWNE", "name": "Lansdowne Road", "lat": 53.3348, "lon": -6.2294, "time": "23:01" },
+    { "id": "PH-SMONT", "name": "Sandymount", "lat": 53.3281, "lon": -6.2211, "time": "23:03" },
+    { "id": "PH-SIDNY", "name": "Sydney Parade", "lat": 53.3206, "lon": -6.2112, "time": "23:05" },
+    { "id": "PH-BTSTN", "name": "Booterstown", "lat": 53.3099, "lon": -6.1950, "time": "23:08" },
+    { "id": "PH-BROCK", "name": "Blackrock", "lat": 53.3027, "lon": -6.1782, "time": "23:10" },
+    { "id": "PH-SEAPT", "name": "Seapoint", "lat": 53.2990, "lon": -6.1652, "time": "23:12" },
+    { "id": "PH-SLTHL", "name": "Salthill & Monkstown", "lat": 53.2953, "lon": -6.1520, "time": "23:14" },
+    { "id": "PH-DLERY", "name": "Dún Laoghaire", "lat": 53.2951, "lon": -6.1350, "time": "23:16" },
+    { "id": "PH-SCOVE", "name": "Sandycove & Glasthule", "lat": 53.2878, "lon": -6.1270, "time": "23:18" },
+    { "id": "PH-GLGRY", "name": "Glenageary", "lat": 53.2812, "lon": -6.1229, "time": "23:20" },
+    { "id": "PH-DLKEY", "name": "Dalkey", "lat": 53.2756, "lon": -6.1033, "time": "23:22" },
+    { "id": "PH-KILNY", "name": "Killiney", "lat": 53.2556, "lon": -6.1131, "time": "23:25" },
+    { "id": "PH-SHILL", "name": "Shankill", "lat": 53.2365, "lon": -6.1171, "time": "23:28" },
+    { "id": "PH-BRAY", "name": "Bray", "lat": 53.2043, "lon": -6.1004, "time": "23:31" }
+  ],
+  "shape": []
+}
