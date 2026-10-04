@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Placeholder for /found-laptop.jpg. 4:3. Sticker and asset tag sit under content.blurBoxes. -->
+  <defs>
+    <linearGradient id="seat" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1d3b36"/>
+      <stop offset="1" stop-color="#10221f"/>
+    </linearGradient>
+    <linearGradient id="lid" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2c3033"/>
+      <stop offset="0.5" stop-color="#1b1e20"/>
+      <stop offset="1" stop-color="#111314"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.3" cy="0.2" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="weave" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <rect width="14" height="14" fill="none"/>
+      <rect width="7" height="14" fill="#ffffff" opacity="0.035"/>
+    </pattern>
+  </defs>
+
+  <!-- train seat -->
+  <rect width="800" height="600" fill="url(#seat)"/>
+  <rect width="800" height="600" fill="url(#weave)"/>
+  <rect y="548" width="800" height="52" fill="#0a1513" opacity="0.7"/>
+
+  <!-- laptop lid, seen from above -->
+  <g>
+    <rect x="112" y="98" width="592" height="424" rx="26" fill="#000" opacity="0.45" transform="translate(10 16)"/>
+    <rect x="112" y="98" width="592" height="424" rx="26" fill="url(#lid)" stroke="#3a3f42" stroke-width="2"/>
+    <rect x="112" y="98" width="592" height="424" rx="26" fill="url(#glow)"/>
+    <rect x="300" y="514" width="216" height="8" rx="4" fill="#0b0c0d"/>
+
+    <!-- generic maker's mark -->
+    <circle cx="420" cy="330" r="34" fill="none" stroke="#565c60" stroke-width="5"/>
+    <circle cx="420" cy="330" r="14" fill="#3e4346"/>
+
+    <!-- round bike sticker (under the "sticker" blur box: x30 y35 w18 h14) -->
+    <g transform="translate(312 252) scale(0.82)">
+      <circle r="44" fill="#eaf6f8"/>
+      <circle r="38" fill="#12a5c4"/>
+      <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="-15" cy="8" r="10"/>
+        <circle cx="15" cy="8" r="10"/>
+        <path d="M-15 8 L-5 -8 L8 -8 L15 8 M-5 -8 L3 8 L-15 8 M5 -14 L11 -14 M-9 -13 L-2 -13"/>
+      </g>
+    </g>
+
+    <!-- asset tag with serial (under the "serial" blur box: x62 y78 w22 h8) -->
+    <g transform="translate(584 492)">
+      <rect x="-80" y="-18" width="160" height="36" rx="4" fill="#e9ecee"/>
+      <g fill="#1b1e20">
+        <rect x="-70" y="-11" width="3" height="14"/><rect x="-64" y="-11" width="6" height="14"/>
+        <rect x="-55" y="-11" width="2" height="14"/><rect x="-50" y="-11" width="5" height="14"/>
+        <rect x="-42" y="-11" width="3" height="14"/><rect x="-36" y="-11" width="7" height="14"/>
+        <rect x="-26" y="-11" width="2" height="14"/><rect x="-21" y="-11" width="4" height="14"/>
+      </g>
+      <text x="-10" y="5" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" font-weight="700" fill="#1b1e20">S/N 7XK2-93QF</text>
+    </g>
+  </g>
+</svg>
