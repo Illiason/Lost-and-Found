@@ -13,15 +13,19 @@ const HIDDEN = -1
 export const STEP_INDEX = Object.fromEntries(STEPS.map((s, i) => [s.id, i])) as Record<StepId, number>
 
 /**
- * True when the current step should play its entry animation: after next(), and for step 1 when
- * the owner tree has just mounted (first load, or a reset, which remounts it). After prev() the
- * target step renders finished.
+ * True when the current step should play its entry animation: only a single forward step
+ * (next()), plus step 1 right after the owner tree mounts (first load, or a reset, which remounts
+ * it). Any other move (back, a digit-key jump, a jump forward by more than one) renders the target
+ * step finished, whatever `direction` says.
  */
-export function usePlay(index: number, direction: 1 | -1): boolean {
-  const mountIndex = useRef(index)
-  const moved = useRef(false)
-  if (index !== mountIndex.current) moved.current = true
-  return direction === 1 || !moved.current
+export function usePlay(index: number, direction: number): boolean {
+  const lastIndex = useRef(index)
+  const play = useRef(true)
+  if (index !== lastIndex.current) {
+    play.current = direction === 1 && index === lastIndex.current + 1
+    lastIndex.current = index
+  }
+  return play.current
 }
 
 export function modeFor(id: StepId, current: number, play: boolean): Mode {
