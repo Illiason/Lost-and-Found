@@ -1,16 +1,16 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check, CircleCheck, Clock, ExternalLink, Gift, Laptop, TrainFront } from 'lucide-react'
 import { content, fill } from '../../data/content'
-import { Appear, Card, JourneyTimeline } from './atoms'
+import { Appear, Card, JourneyTimeline, SelfPress } from './atoms'
 import { ownerCopy } from './ownerCopy'
 import { board, route, terminus } from './ownerTrip'
-import { EASE_OUT, useElapsed, type Mode } from './playback'
+import { DONE, EASE_OUT, useElapsed, type Mode } from './playback'
 
 // Step 5: the Post button presses itself, a toast confirms, then the listing appears.
-const PRESS_AT = 2200
-const POSTED_AT = PRESS_AT + 180
-const TOAST_AT = PRESS_AT + 250
-const SWITCH_AT = PRESS_AT + 1000
+const POSTED_AT = 2400
+const PRESS_LEAD = 250
+const TOAST_AT = POSTED_AT + 100
+const SWITCH_AT = POSTED_AT + 850
 const TOAST_END = SWITCH_AT + 1900
 const STEP5_MS = TOAST_END + 400
 // Step 9: the listing status flips as the push banner lands.
@@ -30,7 +30,7 @@ export function HomeScreen({ modes }: Props) {
   const play = modes.post === 'play'
 
   const showForm = t < SWITCH_AT
-  const pressing = t >= PRESS_AT && t < POSTED_AT
+  const pressing = t >= POSTED_AT - PRESS_LEAD && t < POSTED_AT
   const posted = t >= POSTED_AT
   const toast = t >= TOAST_AT && t < TOAST_END
   const matched = tn >= MATCH_FLIP_AT
@@ -98,16 +98,15 @@ export function HomeScreen({ modes }: Props) {
               <div className="mt-2.5 text-base leading-snug text-muted">{content.rewardLabel}</div>
             </Card>
 
-            <motion.div
-              animate={{ scale: pressing ? 0.95 : 1 }}
-              transition={{ duration: 0.12 }}
+            <SelfPress
+              pressed={pressing}
               className={`flex h-13 items-center justify-center gap-2 rounded-2xl text-lg font-semibold transition-colors ${
                 posted ? 'bg-accent/20 text-accent' : 'bg-accent text-bg'
               }`}
             >
               {posted && <Check size={20} strokeWidth={3} />}
               {posted ? ownerCopy.postedButton : ownerCopy.postButton}
-            </motion.div>
+            </SelfPress>
           </motion.div>
         ) : (
           <motion.div
@@ -122,7 +121,7 @@ export function HomeScreen({ modes }: Props) {
             <Appear play={play} delay={0.15}>
               <Card>
                 <div className="mb-3 text-base font-semibold">{ownerCopy.routeTitle}</div>
-                <JourneyTimeline progress={1} />
+                <JourneyTimeline t={DONE} />
               </Card>
             </Appear>
           </motion.div>
