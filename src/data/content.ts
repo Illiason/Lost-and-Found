@@ -31,7 +31,10 @@ export const content = {
 
   lostPropertyRule: {
     text: 'Items found on Irish Rail services are held for 30 days',
+    /** Same page: where to ask. This is the premise of the whole demo. */
+    contact: 'Contact the terminal station of the service you travelled on',
     sourceUrl: 'https://transportforireland.ie/support/lost-property',
+    checked: '2026-10-04',
   },
 
   rewards: [10, 20, 50],
@@ -76,9 +79,68 @@ export const content = {
   evidence: {
     sources: [
       { name: trip.source.name, url: trip.source.url, note: `Downloaded ${trip.source.downloaded}` },
-      { name: 'Transport for Ireland · Lost property', url: 'https://transportforireland.ie/support/lost-property' },
-      { name: 'Basemap © OpenStreetMap contributors, © CARTO', url: 'https://carto.com/attributions' },
+      {
+        name: 'Transport for Ireland · Lost property',
+        url: 'https://transportforireland.ie/support/lost-property',
+        note: 'Checked 2026-10-04',
+      },
+      {
+        name: 'Basemap © OpenStreetMap contributors, © CARTO',
+        url: 'https://carto.com/attributions',
+        note: 'Tiles loaded live',
+      },
     ],
     disclaimer: 'Scripted demo — transport data is real; people and items are simulated.',
+  },
+
+  presenterHint: '→ next · ← back · 1–0 jump · R reset · E evidence · F fullscreen · H hide',
+
+  intro: {
+    tagline: "You got off. Your laptop didn't.",
+    line: 'Find where your lost item went, using Irish public transport data.',
+    event: 'Build for Ireland · Dogpatch Labs',
+    team: 'Team: …',
+    start: 'Press → to start',
+  },
+
+  outro: {
+    columns: [
+      {
+        title: "What's real",
+        tone: 'accent',
+        items: [
+          {
+            head: trip.source.name,
+            body: trip.source.url,
+            note: `Downloaded ${trip.source.downloaded}`,
+          },
+          {
+            head: 'TFI lost-property rules',
+            body: 'Irish Rail holds lost property for 30 days. Contact the terminal station of the service you travelled on.',
+          },
+          { head: 'OpenStreetMap / CARTO basemap', body: '© OpenStreetMap contributors, © CARTO' },
+        ],
+      },
+      {
+        title: "What's simulated",
+        tone: 'amber',
+        items: [
+          { head: 'The people', body: 'The owner and the finder' },
+          { head: 'The laptop', body: 'And where it was found' },
+          { head: 'The reward', body: 'No money moves' },
+          { head: 'The AI outputs', body: 'Report parsing, photo description, privacy blur' },
+        ],
+      },
+      {
+        title: "What's next",
+        tone: 'text',
+        items: [
+          { head: 'Live bus tracing', body: 'Follow buses with NTA realtime data' },
+          { head: 'Pre-filled TFI reports', body: 'Send a ready lost-property report in one tap' },
+          { head: 'Garda station routing', body: 'Guide finders of street items to the nearest station' },
+        ],
+      },
+    ],
+    thanks: 'Thank you',
   },
 }

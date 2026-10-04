@@ -68,10 +68,25 @@ const { index, step, stepId, direction, next, prev, reset, resetCount } = useSte
 
 - `index`: 0-based position in `STEPS`.
 - `step`, `stepId`: the current step and its id.
-- `direction`: `1` after `next()`, `-1` after `prev()` or `reset()`. Use it for enter/exit animation direction.
+- `direction`: `1` means play the step's entry animation; `-1` means render its finished state instantly.
+  It is `1` after `next()` and when the intro is dismissed.
+  It is `-1` after `prev()`, a digit jump, and `reset()`.
 - `next()`, `prev()`: clamped at both ends, so they never wrap.
-- `reset()`: back to step 1, closes the evidence drawer, increments `resetCount`.
-- `resetCount`: use it as a React `key` (or effect dependency) to restart animations after a reset.
+  `next()` on the intro dismisses it; `next()` on step 12 opens the outro; `prev()` on the outro closes it.
+- `reset()`: back to step 1 under the intro, closes the evidence drawer, increments `resetCount`.
+- `resetCount`: increments on reset and again when the intro is dismissed.
+  Use it as a React `key` (or effect dependency) to restart animations.
+
+Presenter state lives in the same provider:
+
+```ts
+const { overlay, jump, hintVisible, toggleHint } = usePresenter()
+```
+
+- `overlay`: `'intro' | 'outro' | null`.
+  The intro shows on load and after reset; the outro after `next()` on step 12.
+  They are overlays, not steps: `index` stays 0 under the intro and 11 under the outro.
+- `jump(index)`: go to a step, closing any overlay, with `direction = -1`.
 
 Evidence drawer state lives in the same provider, exposed separately so `useStep` stays exactly as specified:
 
@@ -83,10 +98,27 @@ Keyboard (global, ignored while typing in inputs or with Ctrl/Alt/Meta held):
 
 | Key | Action |
 | --- | --- |
-| ArrowRight, Space | next |
-| ArrowLeft | prev |
-| r | reset |
+| ArrowRight, Space, PageDown | next |
+| ArrowLeft, PageUp | prev |
+| 1-9, 0 | jump to step 1-9, 0 is step 10 (finished state) |
+| r | reset (back to intro) |
 | e | toggle evidence |
+| f | toggle fullscreen |
+| h | hide or show the presenter hint |
+
+Auto-repeat (a held key) is ignored, so a clicker or a held arrow moves exactly one step.
+
+## Step-4 timing contract (`src/components/map/schedule.ts`)
+
+The map and the owner phone's timeline must agree on when the train reaches each stop.
+
+- `T` = minutes from the board time to the terminus time in trip.json (wraps past midnight).
+- The train reaches stop `s` at `(minutes(s) - minutes(board)) / T * 7000` ms after step 4 starts.
+- It pauses 700 ms at the alight stop, so every stop after it is 700 ms later.
+- Total is about 7700 ms.
+- Between stops it moves along the shape at constant speed by distance.
+
+`schedule.ts` exports `RIDE_MS`, `PAUSE_MS`, `arrivalMs(stopIndex)`, `ALIGHT_MS`, `DEPART_ALIGHT_MS`, `JOURNEY_MS` and `kmAt(t)`.
 
 ## trip.json schema (`src/data/trip.json`)
 
@@ -130,7 +162,7 @@ fill(content.notification, { terminus: terminus.name })
 | `parsedTag` | string | "AI-extracted" |
 | `parsedFields` | `{ label, value }[]` | Item, Line, Route, Time |
 | `callouts` | `{ gotOff, didnt, likely }` | |
-| `lostPropertyRule` | `{ text, sourceUrl }` | |
+| `lostPropertyRule` | `{ text, contact, sourceUrl, checked }` | wording checked against the TFI page on `checked` |
 | `rewards` | number[] | `[10, 20, 50]` |
 | `defaultReward` | number | |
 | `rewardLabel` | string | |
@@ -145,7 +177,10 @@ fill(content.notification, { terminus: terminus.name })
 | `verifyQuestion`, `verifyAnswer` | string | |
 | `finaleBanner` | string | |
 | `pickup` | `{ place, hours }` | `place` is a template, vars: `terminus` |
-| `evidence` | `{ sources: { name, url, note? }[], disclaimer }` | |
+| `evidence` | `{ sources: { name, url, note }[], disclaimer }` | `note` holds the source date |
+| `presenterHint` | string | footer hint |
+| `intro` | `{ tagline, line, event, team, start }` | `team` is a placeholder |
+| `outro` | `{ columns: { title, tone, items: { head, body, note? }[] }[], thanks }` | |
 
 ## Shared UI (`src/components/ui`)
 
@@ -153,7 +188,12 @@ fill(content.notification, { terminus: terminus.name })
   Inactive phones dim and scale down.
   The whole device scales down to fit shorter screens, so design screen content in exact pixels.
   The screen area below the status bar is 340x676 and clips overflow.
-- `TopBar`, `EvidenceButton`, `EvidenceDrawer`, `LogoMark`.
+- `Stage`: the fixed 1920x1080 stage, scaled uniformly to fit the window and letterboxed.
+  Design everything in 1080p pixels.
+  `position: fixed` inside the stage is relative to the stage.
+  `useStageScale()` returns the current scale.
+- `Overlays`: intro and outro screens.
+- `TopBar`, `EvidenceButton`, `EvidenceDrawer`, `LogoMark`, `RouteSketch`.
 
 ## Theme tokens (`src/index.css`)
 
@@ -175,3 +215,5 @@ Also `shadow-soft`, `shadow-device`, and a `glass` utility for map overlays.
 
 MapStage sets the MapLibre worker URL explicitly and passes its own `maplibregl` instance to `<Map mapLib>`.
 Keep both, or the map goes blank under Vite.
+It raises the canvas pixel ratio when the stage is scaled above 1, so the map stays sharp on large screens.
+If the basemap style cannot load (offline), it switches to a plain dark style and still draws the route, stops and callouts.

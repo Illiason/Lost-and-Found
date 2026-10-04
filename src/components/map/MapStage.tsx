@@ -7,6 +7,7 @@ import { content } from '../../data/content'
 import { trip } from '../../data/trip'
 import { useStep } from '../../state/StepContext'
 import type { StepId } from '../../types'
+import { useStageScale } from '../ui/Stage'
 import {
   alight,
   alightKm,
@@ -97,7 +98,10 @@ export function MapStage() {
   const journey = useJourney()
   const mapRef = useRef<MapRef>(null)
   const [loaded, setLoaded] = useState(false)
-  const [mapStyle, setMapStyle] = useState<string | StyleSpecification>(MAP_STYLE)
+  // Known offline (e.g. DevTools offline): skip the doomed basemap request entirely.
+  const [mapStyle, setMapStyle] = useState<string | StyleSpecification>(() =>
+    navigator.onLine ? MAP_STYLE : FALLBACK_STYLE,
+  )
 
   const forward = direction === 1
   const entering = (id: StepId) => forward && stepId === id
@@ -122,8 +126,9 @@ export function MapStage() {
     const firstRun = !cameraReady.current
     cameraReady.current = true
 
-    // Step 2 shares step 1's view, so a forward 1 -> 2 keeps the drift going instead of snapping back.
-    if (stepId === 'lost-parsed' && forward && !firstRun) return
+    // Steps 1-2 share one view. Moving forward into them (1 -> 2, or leaving the intro onto step 1)
+    // keeps the running drift instead of snapping back.
+    if ((stepId === 'lost-message' || stepId === 'lost-parsed') && forward && !firstRun) return
 
     map.stop()
     const cam = cameraFor(stepId, map.getContainer().clientWidth)
@@ -138,11 +143,21 @@ export function MapStage() {
     } else {
       map.jumpTo({ ...target, bearing: 0, pitch: 0 })
       if (stepId === 'lost-message' || stepId === 'lost-parsed') {
-        map.easeTo({ zoom: DUBLIN_BAY.zoom + 0.35, duration: 45000, easing: (t) => t, essential: true })
+        map.easeTo({ zoom: DUBLIN_BAY.zoom + 0.5, duration: 90000, easing: (t) => t, essential: true })
       }
     }
     // stepId and direction always change together with index, so index is the trigger.
   }, [index, resetCount, loaded])
+
+  // The stage is CSS-scaled, so MapLibre's layout size never changes. When the stage is scaled up
+  // (big screens) raise the canvas pixel ratio so tiles and lines stay sharp.
+  const stageScale = useStageScale()
+  useEffect(() => {
+    const map = mapRef.current?.getMap()
+    if (!loaded || !map) return
+    map.setPixelRatio(Math.min(3, window.devicePixelRatio * Math.max(1, stageScale)))
+    map.resize()
+  }, [stageScale, loaded])
 
   // If the style never arrives, fall back to a plain background so lines and callouts still show.
   useEffect(() => {
@@ -187,6 +202,8 @@ export function MapStage() {
         mapLib={maplibregl}
         initialViewState={{ longitude: DUBLIN_BAY.center[0], latitude: DUBLIN_BAY.center[1], zoom: DUBLIN_BAY.zoom }}
         mapStyle={mapStyle}
+        // A diff against a style that never loaded only produces a warning; always rebuild instead.
+        styleDiffing={false}
         attributionControl={{ compact: false }}
         style={{ width: '100%', height: '100%', background: BG }}
         interactive={false}
