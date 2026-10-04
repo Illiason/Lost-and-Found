@@ -1,10 +1,10 @@
-# Lostline
+# OnlyFounds
 
 You got off. Your laptop didn't.
 
-Lostline tells people who lost something on Dublin public transport where their item most likely went, and connects them with whoever found it.
+OnlyFounds tells people who lost something on Dublin public transport where their item most likely went, and connects them with whoever found it.
 An item left on a train keeps travelling to the end of the line, so the place to look is the vehicle's terminus, not the owner's stop.
-Lostline uses the real timetable to trace the exact service to its terminus, lets a finder photograph the item with private details blurred, explains each match with reasons, and verifies the owner with a hidden detail before handover at an official point.
+OnlyFounds uses the real timetable to trace the exact service to its terminus, lets a finder photograph the item with private details blurred, explains each match with reasons, and verifies the owner with a hidden detail before handover at an official point.
 
 **Team sentence:** We're helping people who lose things on public transport in Dublin find out where their item went and get it back, using NTA timetable data, TFI lost-property rules and an AI matcher.
 

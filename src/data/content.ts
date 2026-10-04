@@ -10,7 +10,7 @@ export function fill(template: string, vars: Record<string, string | number>): s
 export type MatchReason = { text: string; type: 'ok' | 'pending' }
 
 export const content = {
-  appName: 'Lostline',
+  appName: 'OnlyFounds',
 
   ownerMessage:
     'Last night I took the DART from Malahide to Tara St around 22:30. Left my grey Lenovo laptop on it, the one covered in stickers.',

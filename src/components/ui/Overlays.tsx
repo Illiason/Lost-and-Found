@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { content } from '../../data/content'
 import { usePresenter } from '../../state/StepContext'
-import { LogoMark } from './LogoMark'
+import { Wordmark } from './LogoMark'
 import { RouteSketch } from './RouteSketch'
 
 const FADE = { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }
@@ -49,10 +49,7 @@ function Intro() {
       </div>
 
       <div className="relative max-w-[1150px]">
-        <div className="flex items-center gap-4">
-          <LogoMark size={64} />
-          <span className="text-[44px] font-semibold tracking-tight">{content.appName}</span>
-        </div>
+        <Wordmark height={92} />
 
         <h1 className="mt-16 text-[112px] font-semibold leading-[1.02] tracking-[-0.03em]">
           {first}.
@@ -85,10 +82,7 @@ function Outro() {
   const { outro } = content
   return (
     <div className="flex h-full flex-col px-[120px] pb-[90px] pt-[100px]">
-      <div className="flex items-center gap-3">
-        <LogoMark size={44} />
-        <span className="text-[30px] font-semibold tracking-tight">{content.appName}</span>
-      </div>
+      <Wordmark height={64} />
 
       <div className="mt-14 grid grid-cols-3 gap-8">
         {outro.columns.map((col, i) => {

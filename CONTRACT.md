@@ -1,4 +1,4 @@
-# Lostline shared contract
+# OnlyFounds shared contract
 
 This file is the contract every later round builds on.
 Read it before touching anything.

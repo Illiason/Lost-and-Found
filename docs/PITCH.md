@@ -1,4 +1,4 @@
-# Lostline stage script
+# OnlyFounds stage script
 
 About 3 minutes. The demo block is 90 seconds and is the part to protect.
 

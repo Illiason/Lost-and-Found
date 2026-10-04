@@ -11,6 +11,8 @@
   --color-muted: #8fa39a;
   --color-accent: #3ddc84;
   --color-amber: #f5b547;
+  /* Logo blue. Brand only: the UI accent stays green. */
+  --color-brand: #069fdc;
 
   --shadow-soft: 0 10px 30px -10px rgb(0 0 0 / 0.6), 0 2px 6px -2px rgb(0 0 0 / 0.4);
   --shadow-device: 0 40px 80px -20px rgb(0 0 0 / 0.8), 0 0 0 1px rgb(255 255 255 / 0.04);
